@@ -1,0 +1,70 @@
+{
+  status: undefined,
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'AccessGroupModel is not defined',
+  timestamp: '2024-03-31 13:40:47'
+}
+{
+  status: undefined,
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'transaction is not defined',
+  timestamp: '2024-03-31 13:41:52'
+}
+{
+  status: '409',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'Client with email: deepak123@gmail.com and phone number: 6395467288 already exist',
+  timestamp: '2024-03-31 13:42:11'
+}
+{
+  status: '422',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: '"dateOfBirth" is required',
+  timestamp: '2024-03-31 14:50:36'
+}
+{
+  status: '422',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: '"dateOfBirth" is required',
+  timestamp: '2024-03-31 14:51:48'
+}
+{
+  status: undefined,
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: "Cannot read properties of undefined (reading 'validateAsync')",
+  timestamp: '2024-03-31 14:59:44'
+}
+{
+  status: '422',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: '"city" is not allowed',
+  timestamp: '2024-03-31 15:01:28'
+}
+{
+  status: '422',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: '"postalCode" is not allowed',
+  timestamp: '2024-03-31 15:04:22'
+}
+{
+  status: '409',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'Client with email: deepak123@gmail.com and phone number: 6395467288 already exist',
+  timestamp: '2024-03-31 15:07:58'
+}
+{
+  status: '422',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: '"userId" is required',
+  timestamp: '2024-03-31 16:44:14'
+}
