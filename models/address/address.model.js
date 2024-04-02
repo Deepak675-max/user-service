@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema({
-    addressLine: {
+    streetAddressLine: {
         type: String,
         require: true
     },
@@ -20,11 +20,6 @@ const addressSchema = new mongoose.Schema({
     postalCode: {
         type: Number,
         default: true
-    },
-    type: {
-        type: String,
-        enum: ["RESIDENCE", "SHIPPING"],
-        require: true,
     },
     isDeleted: {
         type: Boolean,

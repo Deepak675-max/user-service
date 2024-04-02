@@ -1,7 +1,7 @@
 const httpErrors = require('http-errors');
 const JWT = require('jsonwebtoken');
 const notAuthorized = "Request not Authorized";
-const { logger } = require("../helper/common/winston");
+const { logger } = require("../../Product_Service/utils/error_logger/winston");
 
 const signAccessToken = (payloadData) => {
     return new Promise(async (resolve, reject) => {
@@ -9,8 +9,6 @@ const signAccessToken = (payloadData) => {
             const jwtAccessToken = JWT.sign(
                 {
                     userId: payloadData.userId,
-                    firstName: payloadData.firstName,
-                    lastName: payloadData.lastName,
                     email: payloadData.email,
                 },
                 process.env.JWT_ACCESS_TOKEN_SECRET_KEY,
@@ -34,8 +32,6 @@ const signRefreshToken = (payloadData) => {
             const jwtRefreshToken = JWT.sign(
                 {
                     userId: payloadData.userId,
-                    firstName: payloadData.firstName,
-                    lastName: payloadData.lastName,
                     email: payloadData.email,
                 },
                 process.env.JWT_REFRESH_TOKEN_SECRET_KEY,
@@ -58,7 +54,7 @@ const verifyAccessToken = async (req, res, next) => {
         const accessToken = req.cookies[process.env.JWT_ACCESS_TOKEN_HEADER];
 
         if (!accessToken) {
-            throw httpErrors[401]('Unauthorized');
+            throw httpErrors[401](notAuthorized);
         }
 
         const payloadData = JWT.verify(accessToken, process.env.JWT_ACCESS_TOKEN_SECRET_KEY);
@@ -84,7 +80,7 @@ const verifyRefreshToken = async (req, res, next) => {
         const refreshToken = req.cookies[process.env.JWT_REFRESH_TOKEN_HEADER];
 
         if (!refreshToken) {
-            throw httpErrors[401]('Unauthorized');
+            throw httpErrors[401](notAuthorized);
         }
 
         const payloadData = JWT.verify(refreshToken, process.env.JWT_REFRESH_TOKEN_SECRET_KEY);
@@ -124,7 +120,6 @@ const verifyRefreshToken = async (req, res, next) => {
 
 module.exports = {
     verifyAccessToken,
-    // removeToken,
     signAccessToken,
     signRefreshToken,
     verifyRefreshToken

@@ -9,8 +9,8 @@ const userController = require("../../controllers/user.controller");
 userServiceRouter.post('/merchant/register', userController.registerMerchant);
 userServiceRouter.post('/login', userController.loginUser);
 userServiceRouter.post('/client/register', userController.registerClient);
-userServiceRouter.post('/add-address', userController.addUserAddress);
-userServiceRouter.get('/profile/:userId', authMiddleware.verifyAccessToken, userController.getUserDetails);
+userServiceRouter.post('/create-address', authMiddleware.verifyAccessToken, userController.createUserAddress);
+userServiceRouter.get('/profile/:id', authMiddleware.verifyAccessToken, userController.getUserProfile);
 userServiceRouter.get('/logout', authMiddleware.verifyAccessToken, userController.logoutUser);
 userServiceRouter.get('/refresh', authMiddleware.verifyRefreshToken, userController.refreshUser);
 

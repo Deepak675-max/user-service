@@ -1,0 +1,77 @@
+{
+  status: undefined,
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: "Cannot read properties of undefined (reading 'validateAsync')",
+  timestamp: '2024-04-02 10:31:16'
+}
+{
+  status: '500',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'User profile not exist',
+  timestamp: '2024-04-02 11:44:31'
+}
+{
+  status: '404',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'User profile not exist',
+  timestamp: '2024-04-02 11:44:58'
+}
+{
+  status: '401',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'invalid username or password',
+  timestamp: '2024-04-02 11:45:30'
+}
+{
+  status: '401',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'invalid username or password',
+  timestamp: '2024-04-02 11:47:09'
+}
+{
+  status: '401',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'invalid username or password',
+  timestamp: '2024-04-02 11:49:24'
+}
+{
+  status: '401',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'invalid username or password',
+  timestamp: '2024-04-02 11:50:07'
+}
+{
+  status: '409',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: 'User with email: akansha123@gmail.com and phone number: 6395467288 already exist',
+  timestamp: '2024-04-02 11:53:29'
+}
+{
+  status: '422',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: '"userId" is not allowed',
+  timestamp: '2024-04-02 11:54:39'
+}
+{
+  status: '422',
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: '"type" is not allowed',
+  timestamp: '2024-04-02 11:55:39'
+}
+{
+  status: undefined,
+  path: '\\controllers\\user.controller.js',
+  level: 'error',
+  message: "Cannot read properties of undefined (reading 'userId')",
+  timestamp: '2024-04-02 11:55:56'
+}
