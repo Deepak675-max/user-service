@@ -13,7 +13,6 @@ userServiceBackendApp.use(cors({
 }));
 
 const { APP_PORT } = require("./config/index");
-
 userServiceBackendApp.use(cookieParser());
 userServiceBackendApp.use(express.json());
 userServiceBackendApp.use(express.urlencoded({ extended: true }));

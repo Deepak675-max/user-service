@@ -85,8 +85,6 @@ const loginUser = async (req, res, next) => {
 
         const jwtRefreshToken = await userService.getJWTRefreshToken(user._id, user.email);
 
-        req.session.userId = user._id;
-
         if (res.headersSent === false) {
             res.cookie('access-token', jwtAccessToken, { httpOnly: true, maxAge: 86400000, sameSite: 'None', secure: true });
             res.cookie('refresh-token', jwtRefreshToken, { httpOnly: true, maxAge: 86400000, sameSite: 'None', secure: true });

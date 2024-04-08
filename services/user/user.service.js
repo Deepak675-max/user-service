@@ -75,6 +75,13 @@ class UserService {
         }
     }
 
+    async getUsers() {
+        const users = await UserModel.find({
+            isDeleted: false
+        })
+        return users;
+    }
+
     async createAddress(addressDetails, userId) {
         try {
             const user = await this.getUser(userId);
@@ -134,6 +141,42 @@ class UserService {
             email: email,
         });
         return jwtRefreshToken;
+    }
+
+    async handleGetUserDetailsEvent(userDetails) {
+        try {
+            const user = await this.getUser(userDetails.userId);
+            console.log("user service = ", user);
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async handleGetAllUsersEvent() {
+        try {
+            const users = await this.getUsers();
+            console.log(users);
+            return users;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async SubscribeEvents(payload) {
+        // describe events here.
+        const { userDetails, event } = payload;
+
+        switch (event) {
+            case "GET_USER_DETAILS":
+                return await this.handleGetUserDetailsEvent(userDetails);
+                break;
+            case "GET_ALL_USERS":
+                return await this.handleGetAllUsersEvent();
+                break;
+            default:
+                break;
+        }
     }
 }
 

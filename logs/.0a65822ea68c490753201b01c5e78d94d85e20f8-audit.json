@@ -6,9 +6,14 @@
     "auditLog": "logs\\.0a65822ea68c490753201b01c5e78d94d85e20f8-audit.json",
     "files": [
         {
-            "date": 1712116459977,
-            "name": "logs\\app-error-2024-04-03.log",
-            "hash": "f14f2ecb23b9654c4bd759e32cc839a66ed971774db8023a8bf0e4c25e446ee2"
+            "date": 1712475548692,
+            "name": "logs\\app-error-2024-04-07.log",
+            "hash": "cca1d97feacbd2c23e2f89dc0aa92fb191349115a904f3a7bc741560b8167df8"
+        },
+        {
+            "date": 1712541697292,
+            "name": "logs\\app-error-2024-04-08.log",
+            "hash": "5543f91b07c31913c213b178f03beaaa79e5f338913ecebfe581bc98bf090b67"
         }
     ],
     "hashType": "sha256"
