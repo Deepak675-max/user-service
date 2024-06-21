@@ -1,33 +1,27 @@
 const UserModel = require("../../models/user/user.model");
-const AddressModel = require("../../models/address/address.model");
 const jwtModule = require("../../middlewares/auth.middleware");
 const httpErrors = require('http-errors');
 const bcrypt = require('bcrypt');
 
-
 class UserService {
 
-    async signUp(userDetails, userRole) {
+    async signUp(userDetails, isAdmin) {
         try {
             const user = await UserModel.findOne({
                 email: userDetails.email,
-                phoneNumber: userDetails.phoneNumber,
                 isDeleted: false
             });
 
             if (user)
-                throw httpErrors.Conflict(`User with email: ${userDetails.email} and phone number: ${userDetails.phoneNumber} already exist`);
+                throw httpErrors.Conflict(`User with email: ${userDetails.email} already exist`);
 
             userDetails.password = await bcrypt.hash(userDetails.password, 10);
 
             const newUser = new UserModel({
-                firstName: userDetails.firstName,
-                lastName: userDetails.lastName,
+                name: userDetails.name,
                 email: userDetails.email,
-                phoneNumber: userDetails.phoneNumber,
-                gender: userDetails.gender,
                 password: userDetails.password,
-                role: userRole,
+                isAdmin: isAdmin,
             });
 
             await newUser.save();
@@ -44,16 +38,33 @@ class UserService {
             });
 
             if (!user)
-                throw httpErrors.Unauthorized('invalid username or password');
+                throw httpErrors.Unauthorized("invalid username or password");
 
             const isPasswordMatch = await bcrypt.compare(password, user.password).catch(error => {
                 throw httpErrors.Unauthorized("Inavalid username or password");
             });
 
             if (!isPasswordMatch)
-                throw httpErrors.Unauthorized('invalid username or password.');
+                throw httpErrors.Unauthorized("invalid username or password");
 
             return user;
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async logoutUser(userId) {
+        try {
+            await jwtModule
+                .removeToken({
+                    userId: userId,
+                })
+                .catch((error) => {
+                    throw httpErrors.InternalServerError(
+                        `JWT Access Token error : ${error.message}`
+                    );
+                });
 
         } catch (error) {
             throw error;
@@ -78,46 +89,29 @@ class UserService {
     async getUsers() {
         const users = await UserModel.find({
             isDeleted: false
-        })
+        });
         return users;
     }
 
-    async createAddress(addressDetails, userId) {
+    async updateUser(userDetails) {
         try {
-            const user = await this.getUser(userId);
-
-            const newAddress = new AddressModel({
-                streetAddressLine: addressDetails.streetAddressLine,
-                city: addressDetails.city,
-                state: addressDetails.state,
-                country: addressDetails.country,
-                postalCode: addressDetails.postalCode,
-                type: addressDetails.type
-            });
-
-            const userAddress = await newAddress.save();
-
-            await user.updateOne({
-                $set: {
-                    address: userAddress._id
-                },
-            }, {
+            const updatedUser = await UserModel.findOneAndUpdate({ _id: userDetails.userId, isDeleted: false }, userDetails, {
                 new: true
             });
+            if (!updatedUser) throw httpErrors.NotFound('User not found');
+            return updatedUser;
         } catch (error) {
             throw error;
         }
     }
+
 
     async getUserProfile(userId) {
         try {
             const userProfile = await UserModel.findOne({
                 _id: userId,
                 isDeleted: false
-            }).select('-createdAt -updatedAt -isDeleted').populate({
-                path: 'address',
-                select: '-createdAt -updatedAt'
-            });
+            }).select('-createdAt -updatedAt -isDeleted -password');
 
             if (!userProfile) throw httpErrors.NotFound('User profile does not exist');
 
@@ -141,42 +135,6 @@ class UserService {
             email: email,
         });
         return jwtRefreshToken;
-    }
-
-    async handleGetUserDetailsEvent(userDetails) {
-        try {
-            const user = await this.getUser(userDetails.userId);
-            console.log("user service = ", user);
-            return user;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async handleGetAllUsersEvent() {
-        try {
-            const users = await this.getUsers();
-            console.log(users);
-            return users;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async SubscribeEvents(payload) {
-        // describe events here.
-        const { userDetails, event } = payload;
-
-        switch (event) {
-            case "GET_USER_DETAILS":
-                return await this.handleGetUserDetailsEvent(userDetails);
-                break;
-            case "GET_ALL_USERS":
-                return await this.handleGetAllUsersEvent();
-                break;
-            default:
-                break;
-        }
     }
 }
 

@@ -1,21 +1,22 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const taskSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true
     },
-    email: {
+    status: {
+        type: String,
+        enum: ['Pending', 'Completed'],
+        default: "Pending"
+    },
+    description: {
         type: String,
         require: true
     },
-    password: {
-        type: String,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
         require: true
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false
     },
     isDeleted: {
         type: Boolean,
@@ -27,4 +28,4 @@ const userSchema = new mongoose.Schema({
     }
 )
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Task', taskSchema);

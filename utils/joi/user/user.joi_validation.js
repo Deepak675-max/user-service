@@ -1,25 +1,21 @@
 const joi = require('joi');
 
 const userRegistrationSchema = joi.object({
-    firstName: joi.string().trim().required(),
-    lastName: joi.string().trim().required(),
+    name: joi.string().trim().required(),
     email: joi.string().trim().email().required(),
-    phoneNumber: joi.string().length(10).trim().required(),
+    isAdmin: joi.boolean().default(false),
     password: joi.string().trim().required(),
-    gender: joi.string().trim().required(),
+});
+
+const updateUserSchema = joi.object({
+    userId: joi.string().trim().hex().length(24).required(),
+    name: joi.string().trim().required(),
+    email: joi.string().trim().email().required(),
 });
 
 const loginUserSchema = joi.object({
     email: joi.string().trim().email().required(),
     password: joi.string().trim().required()
-});
-
-const createUserAddressSchema = joi.object({
-    streetAddressLine: joi.string().trim().required(),
-    city: joi.string().trim().required(),
-    state: joi.string().trim().required(),
-    country: joi.string().trim().required(),
-    postalCode: joi.number().required(),
 });
 
 const getUserProfileSchema = joi.object({
@@ -29,7 +25,7 @@ const getUserProfileSchema = joi.object({
 module.exports = {
     userRegistrationSchema,
     loginUserSchema,
-    createUserAddressSchema,
-    getUserProfileSchema
+    getUserProfileSchema,
+    updateUserSchema
 }
 
